@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="practice2.css">
+    <script src="practice2.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <meta charset="utf-8">
+    <title>Hello</title>
+  </head>
+  <body>
+
+    <input id="logIn2" type="button" value="Log In" onclick="logIn2()">
+
+
+    <form autocomplete="off" method="post"  id="logInForm" visibility: hidden>
+  <p>Username:</p> <input class="inputbox" type="text" name="Username" />
+  <p>Password:</p> <input class="inputbox" type="password" name="Password" />
+  <br><br>
+  <input id="submitButton" type="button" value="Login" onclick="loggingIn()">
+</form>
+
+<nav id="topnav" class="navbar navbar-inverse navbar-fixed-top" visibility: hidden>
+  <ul class="nav navbar-nav">
+    <li><a href="#">Log In</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <p class="navbar-text">Contact</p>
+</nav>
+
+
+
+
+  </body>
+</html>

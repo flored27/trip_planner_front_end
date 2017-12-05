@@ -9,17 +9,21 @@ let loginButton = document.getElementById("loginButton")
 let emailForm = document.getElementById("email")
 let username = document.getElementById("username")
 let emailBox = document.createElement("div")
-loginButton.addEventListener('click', function(event) {
-  event.preventDefault()
-  loginForm.innerHTML = null
-  
+let aBC = document.getElementsByClassName("abc")
+// loginButton.addEventListener('click', deleteLoginBar)
 
-})
+  function deleteLoginBar(event) {
+  event.preventDefault()
+  let newForm = document.getElementById("abc2")
+
+  aBC.innerHTML = newForm.innerHTML;
+}
 // loginForm.appendChild(emailBox)
 // emailBox.innerHTML = `
 // <label>Email</label>
 // <input></input>
 // <label>Password</label>
 // <input></input>`
+
 
 let createItinerary = document.createElement("button")

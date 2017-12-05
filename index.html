@@ -3,6 +3,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Hello, world!</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,8 +16,8 @@
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-light bg-light">
-      <form class="form-inline">
-        <div class="input-group">
+      <form id="abc" class="form-inline">
+        <div id="abc2" class="input-group">
           <form id="login-form">
           <span class="input-group-addon" id="basic-addon1">@</span>
             <input type="text" class="form-control" id="email" placeholder="email" aria-label="email" aria-describedby="basic-addon1">
@@ -25,6 +26,19 @@
           </form>
         </div>
       </form>
+
+      
+
+<div id="abc2" class="input-group" style="display:none">
+  <form id="login-form2">
+  <span class="input-group-addon" id="basic-addon2">@</span>
+    <input type="text" class="form-control" id="email2" placeholder="email" aria-label="email" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" id="username2" placeholder="username" aria-label="email" aria-describedby="basic-addon1">
+    <button class="btn btn-outline-success my-2 my-sm-0" id="loginButton2" type="submit" onclick="deleteLoginBar(event)">Login2</button>
+  </form>
+</div>
+
+
     </nav>
     <div id="itinerary-form">
     </div>
