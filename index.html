@@ -15,21 +15,28 @@
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-light bg-light">
-      <form class="form-inline">
+      <form class="form-inline" id="login-form">
         <div class="input-group">
-          <form id="login-form">
           <span class="input-group-addon" id="basic-addon1">@</span>
             <input type="text" class="form-control" id="email" placeholder="email" aria-label="email" aria-describedby="basic-addon1">
             <input type="text" class="form-control" id="username" placeholder="username" aria-label="email" aria-describedby="basic-addon1">
             <button class="btn btn-outline-success my-2 my-sm-0" id="loginButton" type="submit">Login</button>
-          </form>
+            <button class="btn btn-outline-success my-2 my-sm-0" id="createButton" type="submit">Create Itinerary</button>
         </div>
       </form>
     </nav>
-    <div id="itinerary-form">
+    <div class="row">
+      <div class= "col-md-4">
+        <ul class="list-group">
+
+        </ul>
+      </div>
     </div>
-    <div id="login-form">
+    <div class="col-md-8">
+      <div id= "itinerary-detail">
+      </div>
     </div>
+
   <script src="index.js" charset="utf-8"></script>
   </body>
 </html>
