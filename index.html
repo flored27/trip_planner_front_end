@@ -1,17 +1,35 @@
-<html>
-  <head>
-  <title>Trip Planner</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-  Welcome To Trip Planner!
 
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Hello, world!</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   </head>
   <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-light bg-light">
+      <form class="form-inline">
+        <div class="input-group">
+          <form id="login-form">
+          <span class="input-group-addon" id="basic-addon1">@</span>
+            <input type="text" class="form-control" id="email" placeholder="email" aria-label="email" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" id="username" placeholder="username" aria-label="email" aria-describedby="basic-addon1">
+            <button class="btn btn-outline-success my-2 my-sm-0" id="loginButton" type="submit">Login</button>
+          </form>
+        </div>
+      </form>
+    </nav>
+    <div id="itinerary-form">
+    </div>
     <div id="login-form">
     </div>
-    <div id="itinerary-form">
-
-
-    </div>
-    <script src="index.js" charset="utf-8"></script>
+  <script src="index.js" charset="utf-8"></script>
   </body>
 </html>
