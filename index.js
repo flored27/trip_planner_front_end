@@ -148,6 +148,8 @@ document.addEventListener('DOMContentLoaded', function() {
       event.preventDefault()
       document.getElementById("username").style.display="none";
       document.getElementById("loginButton").style.display="none";
+      document.getElementById("createButton").style.display="block";
+      document.getElementById("addLocation").style.display="block";
       //filters user JSON object to return record that is equal to the user input for email
       let userFilter = user.filter(function (user) {
         return user.email === emailForm.value
