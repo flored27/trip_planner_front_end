@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   //create an itinerary....not including the location
   createButton.addEventListener('click', function(event) {
+    event.preventDefault();
     //clears the page so that the form stuff can load
    while (placeWhereItineraryLoads.hasChildNodes()) {
       placeWhereItineraryLoads.removeChild(placeWhereItineraryLoads.lastChild);
@@ -46,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
    let endDate = document.createElement('input')
    endDate.className = "form-control"
    placeWhereItineraryLoads.innerHTML =  `
-   <div class="row">
-    <div class="col-md-4">
+   <div class="card" style="width: 50%; text-align: center; width: 300px;height: 400px; padding-top: 20px; opacity: .8;">
+    <div class="container">
       <form>
         <div class="form-group" id="itineraryName"><label> Name </label></div>
         <div class="form-group" id="itineraryDescription"><label>Description</label></div>
@@ -178,17 +179,23 @@ document.addEventListener('DOMContentLoaded', function() {
             let itineraryArea = document.createElement('div')
             placeWhereItineraryLoads.appendChild(itineraryArea)
             itineraryArea.innerHTML = `
+            <div class="card" style="text-align: center; padding-top: 25px; width: 400px; height: 200px; opacity: .75">
+            <h6>This Trip:</h6>
             <h1> ${itineraryFilter[0].name} </h1>
-            <p> ${itineraryFilter[0].description}</p>`
+            <p> ${itineraryFilter[0].description}</p>
+            <h6>Things to do:</h6>
+            </div>`
              itineraryFilter[0].destinations.forEach(destination => {
                let locationArea = document.createElement('div')
                locationArea.className = "card"
-               locationArea.style = "width: 300px;"
+               locationArea.style = "margin-left: 25px; width: 350px; height: 225px; opacity: .75"
                locationArea.innerHTML = `
               <div class="card-body">
-              <h6>${destination.name}</h6>
-               <h4>${destination.street_address}</h4>
-               <h5>${destination.city}, ${destination.state} ${destination.zip}</h5>
+              <h4 style="text-align:center">${destination.name}</h6>
+              <br>
+               <h6 style="text-align:center">${destination.street_address}</h4>
+               <h5 style="text-align:center">${destination.city}, ${destination.state} ${destination.zip}</h5>
+               <br>
                </div>`
                itineraryArea.appendChild(locationArea)
              })
