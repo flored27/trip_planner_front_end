@@ -52,3 +52,13 @@ function displayItinerary(user){
     })
   })
 }
+
+
+{
+  method: 'POST',
+  body: JSON.stringify({itinerary_id: ,
+    location_id: ,
+  }),
+  headers: {'Content-Type': 'application/json',
+    'Accept': 'application/json'}
+}
