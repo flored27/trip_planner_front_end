@@ -18,12 +18,13 @@
     <nav class="navbar navbar-light bg-light" id="navbar-intro" >
       <form class="form-inline" id="login-form">
         <div class="input-group">
-            <input type="text" class="form-control" id="email" placeholder="email" aria-label="email" aria-describedby="basic-addon1">
+
             <button class="btn btn-outline-info my-2 my-sm-0" id="logIn2" type="button">Login</button>
           </div>
         </form>
         <div> <h3 id="center-welcome"> 🎡Welcome to Trip Planner!🚀 </h3> </div>
           <div class="nav justify-content-end">
+            <input type="text" id="userIdHidden" style="display: none;">
             <input type="text" class="nav-item" id="searchLocation" aria-describedby="basic-addon1">
             <button class="btn btn-outline-info my-2 my-sm-0" id="searchButton" type="submit">Search Locations</button>
           </div>
@@ -39,7 +40,6 @@
 
           </ul>
         </div>
-
 
           <div class="col-sm-9">
             <div id= "itinerary-detail">

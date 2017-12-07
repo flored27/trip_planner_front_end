@@ -1,14 +1,13 @@
 let loginForm = document.getElementById('login-form')
 let loginButton = document.getElementById('loginButton')
-//email and username from modal
+let hiddenUserId = document.getElementById('userIdHidden')
+// email and username from modal
 let emailForm = document.getElementById('email2')
 let username = document.getElementById('usrname2')
-//submitbutton from modal
+// submitbutton from modal
 let submitModal = document.getElementById('submit-login')
-
 //create new user
 let createUser = document.getElementById('newUserButton')
-
 let emailBox = document.createElement('div')
 let sideBarAppend = document.getElementById('side-bar')
 let listgroup = document.getElementById('itin-container')
@@ -46,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // create an itinerary....not including the location
   createButton.addEventListener('click', function (event) {
+    // debugger;
     event.preventDefault()
     // clears the page so that the form stuff can load
     while (placeWhereItineraryLoads.hasChildNodes()) {
@@ -84,9 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("itineraryDescription").appendChild(itineraryDescription)
     document.getElementById("startDate").appendChild(startDate)
     document.getElementById("endDate").appendChild(endDate)
-
-    let userId = parseInt(document.querySelector('.list-group-item').className.split(" ")[1])
-
+    // this is where the new itineraries is breaking, need to send it to the form
     let submitForm = document.getElementById('submitForm')
     submitForm.addEventListener('click', (event) => {
       while (listgroup.hasChildNodes()) {
@@ -95,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
       event.preventDefault();
       fetch(itineraryURL, {
         method: 'POST',
-        body: JSON.stringify({user_id: userId,
+        body: JSON.stringify({user_id: document.getElementById('userIdHidden').value,
           name: itineraryName.value,
           description: itineraryDescription.value,
           start_date: startDate.value,
@@ -229,20 +227,16 @@ document.addEventListener('DOMContentLoaded', function() {
       //hides modal
       document.getElementById("myModal").style.display = "none";
 
-      //displays nav bar
-      document.getElementById("navbar-intro").style.display = "block";
-
     })
   }
   function displayItinerary(user){
     let userFilter = user.filter(function (user) {
       return user.email === emailForm.value
     })
-
+    hiddenUserId.value = userFilter[0].id
     //creates the actual list elements with an id equal to the trip name, etc to show up in the left hand bar ofthe page
     userFilter[0].user_trips.forEach(trip => {
       let userTrip = document.createElement('li')
-      // debugger
       userTrip.id = `${trip.name}-${trip.id}`
       userTrip.innerText = trip.name
       userTrip.style = "margin: 2.5px"
@@ -274,30 +268,50 @@ document.addEventListener('DOMContentLoaded', function() {
           <p> ${itineraryFilter[0].description}</p>
           <p> ${itineraryFilter[0].start_date} - ${itineraryFilter[0].end_date}</p>
           <p id="idItinerary" style="display: none;">${itineraryFilter[0].id}</p>
-          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button></div><br>
+          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button></div><button type="button" id="EditItinerary" style="width: 20%;" class="btn btn-warning">Edit</button></div><br>
           </div>
           `
           itineraryFilter[0].destinations.forEach(destination => {
             let locationArea = document.createElement('div')
             locationArea.className = "card"
-            locationArea.style = "margin: 5px 25px 5px 25px; width: 550px; height: 225px; opacity: .75"
+            locationArea.id = destination.id
+            locationArea.style = "text-align: center; margin: 5px 25px 5px 25px; width: 550px; height: 225px; opacity: .75"
             locationArea.innerHTML = `
-            <div class="card-body">
+            <div class="card-body" id="card-body">
             <h4 style="text-align:center">${destination.name}</h6>
             <br>
             <h6 style="text-align:center">${destination.street_address}</h4>
-            <h5 style="text-align:center">${destination.city}, ${destination.state} ${destination.zip}</h5>
-            <div class="container"><button type="button" id="deleteLocation" style="text-align: center; width: 20%;" class="btn btn-danger">Delete</button></div>
+            <h5 style="text-align:center">${destination.city}, ${destination.state} ${destination.zip}</h5><br>
+            <div class="container" style="text-align:right"><button type="button btn-sm" id="deleteLocation-${destination.id}" style="text-align: right" class="btn btn-outline-danger">Delete</button></div>
             <br>
             </div>`
             itineraryArea.appendChild(locationArea)
+
+            document.getElementById(`deleteLocation-${destination.id}`).addEventListener('click', function(event){
+              event.preventDefault()
+              let selector = document.getElementById(`${destination.id}`)
+              let card1 = document.getElementById('idItinerary')
+              let valueIneed1 = card1.innerText
+              selector.remove()
+              fetch('http://localhost:3000/api/v1/stops').then(res => res.json()).then(data => {
+                let StopFilter = data.filter(stop => {
+                  return stop.location_id === destination.id && stop.itinerary_id === parseInt(valueIneed1)
+                })
+                let stopNumber = StopFilter[0].id
+                fetch(`http://localhost:3000/api/v1/stops/${stopNumber}`, {
+                  method: 'delete',
+                  headers: {'Content-Type': 'application/json',
+                    'Accept': 'application/json'}
+                })
+                })
+            })
           })
           let deleteButton = document.getElementById("deleteItinerary")
           deleteButton.addEventListener('click', function(event) {
             event.preventDefault()
             let x = document.getElementById("itin-container").childNodes
 
-            for (let i = 1; i < x.length; i++) {
+            for (let i = 0; i < x.length; i++) {
               if (x[i].innerText === document.getElementsByTagName('h1')[0].innerText) {
                 document.getElementById("itin-container").removeChild(x[i])
               }
@@ -315,7 +329,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           })
         })
-
       })
     })
   }
