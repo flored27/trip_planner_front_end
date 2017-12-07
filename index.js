@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let endDate = document.createElement('input')
     endDate.className = 'form-control'
     placeWhereItineraryLoads.innerHTML =  `
-    <div class="card" style="width: 50%; text-align: center; width: 300px;height: 400px; padding-top: 20px; opacity: .8;">
+    <div class="card" style="width: 70%; text-align: center; width: 500px;height: 400px; padding-top: 20px; opacity: .8;">
     <div class="container">
     <form>
     <div class="form-group" id="itineraryName"><label> Name </label></div>
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <label> End Date</label>
     </div>
     </div>
-    <button type="button" id="submitForm" class="btn btn-secondary">Create Itinerary</button>
+    <button type="button" id="submitForm" class="btn btn-info">Create Itinerary</button>
     </form>
     </div>
     </div>`
@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("endDate").appendChild(endDate)
 
     let userId = parseInt(document.querySelector('.list-group-item').className.split(" ")[1])
+
     let submitForm = document.getElementById('submitForm')
     submitForm.addEventListener('click', (event) => {
       while (listgroup.hasChildNodes()) {
@@ -117,6 +118,8 @@ document.addEventListener('DOMContentLoaded', function() {
     placeWhereItineraryLoads.innerHTML =  `
     <div class="row">
     <div class="col-md-4">
+    <div class="card" style="width: 50%; text-align: center; width: 500px;height: 600px; padding-top: 20px; opacity: .8;">
+    <div class="container">
     <form>
     <div class="form-group" id="descriptionLocationName"><label> Location Name </label></div>
     <div class="form-group" id="descriptionStreet"><label>Street</label></div>
@@ -125,8 +128,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="form-group" id="descriptionPostal"><label>Postal Code</label></div>
     <div class="form-group" id="connectToItinerary"><label> Add to Existing Itinerary </label><select class="form-control" id="dropDownList"></select></div>
     <div class="form-group" id="hiddenId" style="display: none;"></div>
-    <button type="button" id="addYourLocation" class="btn btn-secondary">Add Location</button>
+    <button type="button" id="addYourLocation" class="btn btn-info">Add Location</button>
     </form>
+    </div>
+    </div>
     </div>
     </div>`
 
@@ -215,49 +220,11 @@ document.addEventListener('DOMContentLoaded', function() {
       // debugger
       userTrip.id = `${trip.name}-${trip.id}`
       userTrip.innerText = trip.name
+      userTrip.style = "margin: 2.5px"
       userTrip.className = "list-group-item " + userFilter[0].id
       // debugger
       listgroup.appendChild(userTrip)
 
-<<<<<<< HEAD
-        //loads itinerary information when you click on that item in the side bar
-        userTrip.addEventListener('click', function(event) {
-          event.preventDefault()
-          //removes childNodes so when you click a new itinerary the previous itinerary is removed
-          while (placeWhereItineraryLoads.hasChildNodes()) {
-            placeWhereItineraryLoads.removeChild(placeWhereItineraryLoads.lastChild);
-          }
-          //loads itinerary information..continued
-          fetch('http://localhost:3000/api/v1/itineraries').then(data => data.json()).then(itinerary => {
-            // filters for a particular user
-            let itineraryFilter = itinerary.filter(itin => {
-              return itin.name === userTrip.id
-            })
-            // creating the place on the page where the itinerary info loads
-            let itineraryArea = document.createElement('div')
-            placeWhereItineraryLoads.appendChild(itineraryArea)
-            itineraryArea.innerHTML = `
-            <div class="card" style="text-align: center; padding-top: 25px; width: 600px; height: 200px; opacity: .75">
-            <h6>This Trip:</h6>
-            <h1> ${itineraryFilter[0].name} </h1>
-            <p> ${itineraryFilter[0].description}</p>
-            <h6>Things to do:</h6>
-            </div>`
-            itineraryFilter[0].destinations.forEach(destination => {
-              let locationArea = document.createElement('div')
-              locationArea.className = "card"
-              locationArea.style = "margin-left: 25px; width: 550px; height: 225px; opacity: .75"
-              locationArea.innerHTML = `
-              <div class="card-body">
-              <h4 style="text-align:center">${destination.name}</h6>
-              <br>
-              <h6 style="text-align:center">${destination.street_address}</h4>
-              <h5 style="text-align:center">${destination.city}, ${destination.state} ${destination.zip}</h5>
-              <br>
-              </div>`
-              itineraryArea.appendChild(locationArea)
-            })
-=======
       //loads itinerary information when you click on that item in the side bar
       userTrip.addEventListener('click', function(event) {
         event.preventDefault()
@@ -276,11 +243,14 @@ document.addEventListener('DOMContentLoaded', function() {
           placeWhereItineraryLoads.appendChild(itineraryArea)
           itineraryArea.innerHTML = `
           <div class="card" style="text-align: center; padding-top: 25px; width: 600px; height: 200px; opacity: .75">
+
           <h6>This Trip:</h6>
           <h1> ${itineraryFilter[0].name} </h1>
           <p> ${itineraryFilter[0].description}</p>
+          <p id="idItinerary" style="display: none;">${itineraryFilter[0].id}</p>
           <h6>Things to do:</h6>
-          </div>`
+          </div>
+          <button type="button" id="deleteItinerary" class="btn btn-warning">Delete</button>`
           itineraryFilter[0].destinations.forEach(destination => {
             let locationArea = document.createElement('div')
             locationArea.className = "card"
@@ -294,10 +264,38 @@ document.addEventListener('DOMContentLoaded', function() {
             <br>
             </div>`
             itineraryArea.appendChild(locationArea)
->>>>>>> 4c1b84c4e9bb4dbb890ac290a9486de777d18944
+          })
+          let deleteButton = document.getElementById("deleteItinerary")
+          deleteButton.addEventListener('click', function(event) {
+            event.preventDefault()
+            let x = document.getElementById("itin-container").childNodes
+
+            for (let i = 1; i < x.length; i++) {
+              if (x[i].innerText === document.getElementsByTagName('h1')[0].innerText) {
+                document.getElementById("itin-container").removeChild(x[i])
+              }
+            }
+
+
+            let card = document.getElementById('idItinerary')
+            let valueIneed = card.innerText
+
+            fetch(`http://localhost:3000/api/v1/itineraries/${valueIneed}`, {
+              method: 'delete',
+              headers: {'Content-Type': 'application/json',
+                'Accept': 'application/json'}
+            })
+            while (placeWhereItineraryLoads.hasChildNodes()) {
+              placeWhereItineraryLoads.removeChild(placeWhereItineraryLoads.lastChild);
+            }
           })
         })
+
       })
     })
   }
+
+
+
+
 })
