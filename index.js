@@ -266,23 +266,43 @@ document.addEventListener('DOMContentLoaded', function() {
           <p> ${itineraryFilter[0].description}</p>
           <p> ${itineraryFilter[0].start_date} - ${itineraryFilter[0].end_date}</p>
           <p id="idItinerary" style="display: none;">${itineraryFilter[0].id}</p>
-          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button></div><br>
+          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button></div><button type="button" id="EditItinerary" style="width: 20%;" class="btn btn-warning">Edit</button></div><br>
           </div>
           `
           itineraryFilter[0].destinations.forEach(destination => {
             let locationArea = document.createElement('div')
             locationArea.className = "card"
+            locationArea.id = destination.id
             locationArea.style = "text-align: center; margin: 5px 25px 5px 25px; width: 550px; height: 225px; opacity: .75"
             locationArea.innerHTML = `
-            <div class="card-body">
+            <div class="card-body" id="card-body">
             <h4 style="text-align:center">${destination.name}</h6>
             <br>
             <h6 style="text-align:center">${destination.street_address}</h4>
             <h5 style="text-align:center">${destination.city}, ${destination.state} ${destination.zip}</h5><br>
-            <div class="container" style="text-align:right"><button type="button btn-sm" id="deleteLocation" style="text-align: right" class="btn btn-outline-danger">Delete</button></div>
+            <div class="container" style="text-align:right"><button type="button btn-sm" id="deleteLocation-${destination.id}" style="text-align: right" class="btn btn-outline-danger">Delete</button></div>
             <br>
             </div>`
             itineraryArea.appendChild(locationArea)
+
+            document.getElementById(`deleteLocation-${destination.id}`).addEventListener('click', function(event){
+              event.preventDefault()
+              let selector = document.getElementById(`${destination.id}`)
+              let card1 = document.getElementById('idItinerary')
+              let valueIneed1 = card1.innerText
+              selector.remove()
+              fetch('http://localhost:3000/api/v1/stops').then(res => res.json()).then(data => {
+                let StopFilter = data.filter(stop => {
+                  return stop.location_id === destination.id && stop.itinerary_id === parseInt(valueIneed1)
+                })
+                let stopNumber = StopFilter[0].id
+                fetch(`http://localhost:3000/api/v1/stops/${stopNumber}`, {
+                  method: 'delete',
+                  headers: {'Content-Type': 'application/json',
+                    'Accept': 'application/json'}
+                })
+                })
+            })
           })
           let deleteButton = document.getElementById("deleteItinerary")
           deleteButton.addEventListener('click', function(event) {
