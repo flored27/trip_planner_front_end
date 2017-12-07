@@ -55,37 +55,37 @@
 
                 <!--Modal-->
                 <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
+              <div class="modal-dialog">
 
-                  <!-- Modal content-->
-                  <div class="modal-content" id="modalContent">
-                    <div class="modal-header" style="padding:35px 50px;" >
-                      <h2 style="text-align:left;">Login</h2>
-                      <button  type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body" style="padding:40px 50px;">
-                      <form role="form">
-                        <div class="form-group">
-                          <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                          <input type="text" class="form-control" id="usrname2" placeholder="Enter Username:">
-                        </div>
-                        <div class="form-group">
-                          <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label>
-                          <input type="text" class="form-control" id="email2" placeholder="Enter Email:">
-                        </div>
-                        <div class="checkbox">
-                          <label><input type="checkbox" value="" checked>Remember me</label>
-                        </div>
-                          <button type="submit" data-dismiss="modal" id="submit-login" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <p>Not a member? <button id="newUserButton">Sign Up</a></button></p>
-                    </div>
+                <!-- Modal content-->
+                <div class="modal-content" id="modalContent">
+                  <div class="modal-header" style="padding:35px 50px;" >
+                    <h2 id="modal-header" style="text-align:left;">Login</h2>
+                    <button  type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body" style="padding:40px 50px;">
+                    <form id="modalForm" role="form">
+                      <div class="form-group">
+                        <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+                        <input type="text" class="form-control" id="usrname2" placeholder="Enter Username:">
+                      </div>
+                      <div class="form-group">
+                        <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label>
+                        <input type="text" class="form-control" id="email2" placeholder="Enter Email:">
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="" checked>Remember me</label>
+                      </div>
+                        <button type="submit" data-dismiss="modal" id="submit-login" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+                    </form>
+                  </div>
+                  <div id="modal-footer" class="modal-footer">
+                    <p>Not a member? <button id="newUserButton">Sign Up</a></button></p>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
   <script src="index.js" charset="utf-8"></script>
 
