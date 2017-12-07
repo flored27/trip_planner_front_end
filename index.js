@@ -263,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <br>
             <h6 style="text-align:center">${destination.street_address}</h4>
             <h5 style="text-align:center">${destination.city}, ${destination.state} ${destination.zip}</h5>
+            <div class="container"><button type="button" id="deleteLocation" style="text-align: center; width: 20%;" class="btn btn-danger">Delete</button></div>
             <br>
             </div>`
             itineraryArea.appendChild(locationArea)
