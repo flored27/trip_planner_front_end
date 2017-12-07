@@ -6,6 +6,8 @@ let emailForm = document.getElementById('email2')
 let username = document.getElementById('usrname2')
 // submitbutton from modal
 let submitModal = document.getElementById('submit-login')
+//create new user
+let createUser = document.getElementById('newUserButton')
 let emailBox = document.createElement('div')
 let sideBarAppend = document.getElementById('side-bar')
 let listgroup = document.getElementById('itin-container')
