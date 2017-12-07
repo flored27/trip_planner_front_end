@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function userData (user) {
     submitModal.addEventListener('click', function(event) {
       event.preventDefault()
-      document.getElementById("loginButton").style.display="none";
+      // document.getElementById("loginButton").style.display="none";
       createButton.style.display="block";
       document.getElementById("addLocation").style.display="block";
       //filters user JSON object to return record that is equal to the user input for email
