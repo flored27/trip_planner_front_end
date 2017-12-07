@@ -1,7 +1,11 @@
 let loginForm = document.getElementById('login-form')
 let loginButton = document.getElementById('loginButton')
-let emailForm = document.getElementById('email')
-let username = document.getElementById('username')
+//email and username from modal
+let emailForm = document.getElementById('email2')
+let username = document.getElementById('usrname2')
+//submitbutton from modal
+let submitModal = document.getElementById('submit-login')
+
 let emailBox = document.createElement('div')
 let sideBarAppend = document.getElementById('side-bar')
 let listgroup = document.getElementById('itin-container')
@@ -13,6 +17,13 @@ const userURL = 'http://localhost:3000/api/v1/users'
 const itineraryURL = 'http://localhost:3000/api/v1/itineraries'
 const locationURL = 'http://localhost:3000/api/v1/locations'
 const stopURL = 'http://localhost:3000/api/v1/stops'
+
+//modal click login
+  $(document).ready(function(){
+    $("#logIn2").click(function(){
+        $("#myModal").modal();
+    });
+});
 
 document.addEventListener('DOMContentLoaded', function() {
   //search button stuff from the nav bar
@@ -201,13 +212,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // code for loading users itineraries in side bar
   function userData (user) {
-    loginButton.addEventListener('click', function(event) {
+    submitModal.addEventListener('click', function(event) {
       event.preventDefault()
       document.getElementById("loginButton").style.display="none";
       createButton.style.display="block";
       document.getElementById("addLocation").style.display="block";
       //filters user JSON object to return record that is equal to the user input for email
       displayItinerary(user)
+
+      //hides original log in button
+      document.getElementById("logIn2").style.display = "none";
+
+      //hides modal
+      document.getElementById("myModal").style.display = "none";
+
+      //displays nav bar
+      document.getElementById("navbar-intro").style.display = "block";
+
     })
   }
   function displayItinerary(user){
