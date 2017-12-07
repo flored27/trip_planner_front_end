@@ -256,14 +256,14 @@ document.addEventListener('DOMContentLoaded', function() {
           itineraryFilter[0].destinations.forEach(destination => {
             let locationArea = document.createElement('div')
             locationArea.className = "card"
-            locationArea.style = "margin: 5px 25px 5px 25px; width: 550px; height: 225px; opacity: .75"
+            locationArea.style = "text-align: center; margin: 5px 25px 5px 25px; width: 550px; height: 225px; opacity: .75"
             locationArea.innerHTML = `
             <div class="card-body">
             <h4 style="text-align:center">${destination.name}</h6>
             <br>
             <h6 style="text-align:center">${destination.street_address}</h4>
-            <h5 style="text-align:center">${destination.city}, ${destination.state} ${destination.zip}</h5>
-            <div class="container"><button type="button" id="deleteLocation" style="text-align: center; width: 20%;" class="btn btn-danger">Delete</button></div>
+            <h5 style="text-align:center">${destination.city}, ${destination.state} ${destination.zip}</h5><br>
+            <div class="container" style="text-align:right"><button type="button btn-sm" id="deleteLocation" style="text-align: right" class="btn btn-outline-danger">Delete</button></div>
             <br>
             </div>`
             itineraryArea.appendChild(locationArea)
