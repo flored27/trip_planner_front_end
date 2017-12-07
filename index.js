@@ -242,15 +242,15 @@ document.addEventListener('DOMContentLoaded', function() {
           let itineraryArea = document.createElement('div')
           placeWhereItineraryLoads.appendChild(itineraryArea)
           itineraryArea.innerHTML = `
-          <div class="card" style="text-align: center; padding-top: 25px; width: 600px; height: 200px; opacity: .75">
+          <div class="card" style="text-align: center; padding-top: 25px; width: 600px; height: 225px; opacity: .75">
 
           <h6>This Trip:</h6>
           <h1> ${itineraryFilter[0].name} </h1>
           <p> ${itineraryFilter[0].description}</p>
           <p id="idItinerary" style="display: none;">${itineraryFilter[0].id}</p>
-          <h6>Things to do:</h6>
+          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button></div><br>
           </div>
-          <button type="button" id="deleteItinerary" class="btn btn-warning">Delete</button>`
+          `
           itineraryFilter[0].destinations.forEach(destination => {
             let locationArea = document.createElement('div')
             locationArea.className = "card"
