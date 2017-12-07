@@ -12,7 +12,11 @@ body,html {
   background-size: cover;
 }
 
+.wrapper {
+  padding-top: 400px;
+  text-align: center;
 
+}
 
 #logInForm {
   text-align: center;

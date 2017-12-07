@@ -1,7 +1,11 @@
 let loginForm = document.getElementById('login-form')
 let loginButton = document.getElementById('loginButton')
-let emailForm = document.getElementById('email')
-let username = document.getElementById('username')
+//email and username from modal
+let emailForm = document.getElementById('email2')
+let username = document.getElementById('usrname2')
+//submitbutton from modal
+let submitModal = document.getElementById('submit-login')
+
 let emailBox = document.createElement('div')
 let sideBarAppend = document.getElementById('side-bar')
 let listgroup = document.getElementById('itin-container')
@@ -13,6 +17,13 @@ const userURL = 'http://localhost:3000/api/v1/users'
 const itineraryURL = 'http://localhost:3000/api/v1/itineraries'
 const locationURL = 'http://localhost:3000/api/v1/locations'
 const stopURL = 'http://localhost:3000/api/v1/stops'
+
+//modal click login
+  $(document).ready(function(){
+    $("#logIn2").click(function(){
+        $("#myModal").modal();
+    });
+});
 
 document.addEventListener('DOMContentLoaded', function() {
   //search button stuff from the nav bar
@@ -44,10 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
     itineraryDescription.className = 'form-control'
     let startDate = document.createElement('input')
     startDate.className = 'form-control'
+    startDate.type = "date"
     let endDate = document.createElement('input')
     endDate.className = 'form-control'
+    endDate.type = "date"
     placeWhereItineraryLoads.innerHTML =  `
-    <div class="card" style="width: 50%; text-align: center; width: 300px;height: 400px; padding-top: 20px; opacity: .8;">
+    <div class="card" style="width: 70%; text-align: center; width: 500px;height: 400px; padding-top: 20px; opacity: .8;">
     <div class="container">
     <form>
     <div class="form-group" id="itineraryName"><label> Name </label></div>
@@ -60,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <label> End Date</label>
     </div>
     </div>
-    <button type="button" id="submitForm" class="btn btn-secondary">Create Itinerary</button>
+    <button type="button" id="submitForm" class="btn btn-info">Create Itinerary</button>
     </form>
     </div>
     </div>`
@@ -70,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("endDate").appendChild(endDate)
 
     let userId = parseInt(document.querySelector('.list-group-item').className.split(" ")[1])
+
     let submitForm = document.getElementById('submitForm')
     submitForm.addEventListener('click', (event) => {
       while (listgroup.hasChildNodes()) {
@@ -117,6 +131,8 @@ document.addEventListener('DOMContentLoaded', function() {
     placeWhereItineraryLoads.innerHTML =  `
     <div class="row">
     <div class="col-md-4">
+    <div class="card" style="width: 50%; text-align: center; width: 500px;height: 600px; padding-top: 20px; opacity: .8;">
+    <div class="container">
     <form>
     <div class="form-group" id="descriptionLocationName"><label> Location Name </label></div>
     <div class="form-group" id="descriptionStreet"><label>Street</label></div>
@@ -125,8 +141,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="form-group" id="descriptionPostal"><label>Postal Code</label></div>
     <div class="form-group" id="connectToItinerary"><label> Add to Existing Itinerary </label><select class="form-control" id="dropDownList"></select></div>
     <div class="form-group" id="hiddenId" style="display: none;"></div>
-    <button type="button" id="addYourLocation" class="btn btn-secondary">Add Location</button>
+    <button type="button" id="addYourLocation" class="btn btn-info">Add Location</button>
     </form>
+    </div>
+    </div>
     </div>
     </div>`
 
@@ -194,14 +212,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // code for loading users itineraries in side bar
   function userData (user) {
-    loginButton.addEventListener('click', function(event) {
+    submitModal.addEventListener('click', function(event) {
       event.preventDefault()
-      document.getElementById("username").style.display="none";
       document.getElementById("loginButton").style.display="none";
       createButton.style.display="block";
       document.getElementById("addLocation").style.display="block";
       //filters user JSON object to return record that is equal to the user input for email
       displayItinerary(user)
+
+      //hides original log in button
+      document.getElementById("logIn2").style.display = "none";
+
+      //hides modal
+      document.getElementById("myModal").style.display = "none";
+
+      //displays nav bar
+      document.getElementById("navbar-intro").style.display = "block";
+
     })
   }
   function displayItinerary(user){
@@ -215,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // debugger
       userTrip.id = `${trip.name}-${trip.id}`
       userTrip.innerText = trip.name
+      userTrip.style = "margin: 2.5px"
       userTrip.className = "list-group-item " + userFilter[0].id
       // debugger
       listgroup.appendChild(userTrip)
@@ -236,12 +264,16 @@ document.addEventListener('DOMContentLoaded', function() {
           let itineraryArea = document.createElement('div')
           placeWhereItineraryLoads.appendChild(itineraryArea)
           itineraryArea.innerHTML = `
-          <div class="card" style="text-align: center; padding-top: 25px; width: 600px; height: 200px; opacity: .75">
+          <div class="card" style="text-align: center; padding-top: 25px; width: 600px; height: 250px; opacity: .75">
+
           <h6>This Trip:</h6>
           <h1> ${itineraryFilter[0].name} </h1>
           <p> ${itineraryFilter[0].description}</p>
-          <h6>Things to do:</h6>
-          </div>`
+          <p> ${itineraryFilter[0].start_date} - ${itineraryFilter[0].end_date}</p>
+          <p id="idItinerary" style="display: none;">${itineraryFilter[0].id}</p>
+          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button></div><br>
+          </div>
+          `
           itineraryFilter[0].destinations.forEach(destination => {
             let locationArea = document.createElement('div')
             locationArea.className = "card"
@@ -252,12 +284,40 @@ document.addEventListener('DOMContentLoaded', function() {
             <br>
             <h6 style="text-align:center">${destination.street_address}</h4>
             <h5 style="text-align:center">${destination.city}, ${destination.state} ${destination.zip}</h5>
+            <div class="container"><button type="button" id="deleteLocation" style="text-align: center; width: 20%;" class="btn btn-danger">Delete</button></div>
             <br>
             </div>`
             itineraryArea.appendChild(locationArea)
           })
+          let deleteButton = document.getElementById("deleteItinerary")
+          deleteButton.addEventListener('click', function(event) {
+            event.preventDefault()
+            let x = document.getElementById("itin-container").childNodes
+
+            for (let i = 1; i < x.length; i++) {
+              if (x[i].innerText === document.getElementsByTagName('h1')[0].innerText) {
+                document.getElementById("itin-container").removeChild(x[i])
+              }
+            }
+            let card = document.getElementById('idItinerary')
+            let valueIneed = card.innerText
+
+            fetch(`http://localhost:3000/api/v1/itineraries/${valueIneed}`, {
+              method: 'delete',
+              headers: {'Content-Type': 'application/json',
+                'Accept': 'application/json'}
+            })
+            while (placeWhereItineraryLoads.hasChildNodes()) {
+              placeWhereItineraryLoads.removeChild(placeWhereItineraryLoads.lastChild);
+            }
+          })
         })
+
       })
     })
   }
+
+
+
+
 })
