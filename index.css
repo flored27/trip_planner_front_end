@@ -18,9 +18,22 @@ body,html {
 
 }
 
+#newUserButton {
+  background-color: white;
+    color: blue;
+    border: 2px solid white;
+    font-size: 16px;
+}
+
+
+
 #logInForm {
   text-align: center;
   animation: fadeIn ease 5s;
+}
+
+#center-welcome {
+  text-align: center;
 }
 
 @keyframes fadeIn{
