@@ -44,8 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
     itineraryDescription.className = 'form-control'
     let startDate = document.createElement('input')
     startDate.className = 'form-control'
+    startDate.type = "date"
     let endDate = document.createElement('input')
     endDate.className = 'form-control'
+    endDate.type = "date"
     placeWhereItineraryLoads.innerHTML =  `
     <div class="card" style="width: 70%; text-align: center; width: 500px;height: 400px; padding-top: 20px; opacity: .8;">
     <div class="container">
@@ -201,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
   function userData (user) {
     loginButton.addEventListener('click', function(event) {
       event.preventDefault()
-      document.getElementById("username").style.display="none";
       document.getElementById("loginButton").style.display="none";
       createButton.style.display="block";
       document.getElementById("addLocation").style.display="block";
@@ -242,11 +243,12 @@ document.addEventListener('DOMContentLoaded', function() {
           let itineraryArea = document.createElement('div')
           placeWhereItineraryLoads.appendChild(itineraryArea)
           itineraryArea.innerHTML = `
-          <div class="card" style="text-align: center; padding-top: 25px; width: 600px; height: 225px; opacity: .75">
+          <div class="card" style="text-align: center; padding-top: 25px; width: 600px; height: 250px; opacity: .75">
 
           <h6>This Trip:</h6>
           <h1> ${itineraryFilter[0].name} </h1>
           <p> ${itineraryFilter[0].description}</p>
+          <p> ${itineraryFilter[0].start_date} - ${itineraryFilter[0].end_date}</p>
           <p id="idItinerary" style="display: none;">${itineraryFilter[0].id}</p>
           <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button></div><br>
           </div>
@@ -275,8 +277,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("itin-container").removeChild(x[i])
               }
             }
-
-
             let card = document.getElementById('idItinerary')
             let valueIneed = card.innerText
 
