@@ -1,11 +1,11 @@
 let loginForm = document.getElementById('login-form')
 let loginButton = document.getElementById('loginButton')
-//email and username from modal
+let hiddenUserId = document.getElementById('userIdHidden')
+// email and username from modal
 let emailForm = document.getElementById('email2')
 let username = document.getElementById('usrname2')
-//submitbutton from modal
+// submitbutton from modal
 let submitModal = document.getElementById('submit-login')
-
 let emailBox = document.createElement('div')
 let sideBarAppend = document.getElementById('side-bar')
 let listgroup = document.getElementById('itin-container')
@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // create an itinerary....not including the location
   createButton.addEventListener('click', function (event) {
+    // debugger;
     event.preventDefault()
     // clears the page so that the form stuff can load
     while (placeWhereItineraryLoads.hasChildNodes()) {
@@ -81,9 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("itineraryDescription").appendChild(itineraryDescription)
     document.getElementById("startDate").appendChild(startDate)
     document.getElementById("endDate").appendChild(endDate)
-
-    let userId = parseInt(document.querySelector('.list-group-item').className.split(" ")[1])
-
+    // this is where the new itineraries is breaking, need to send it to the form
     let submitForm = document.getElementById('submitForm')
     submitForm.addEventListener('click', (event) => {
       while (listgroup.hasChildNodes()) {
@@ -92,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
       event.preventDefault();
       fetch(itineraryURL, {
         method: 'POST',
-        body: JSON.stringify({user_id: userId,
+        body: JSON.stringify({user_id: document.getElementById('userIdHidden').value,
           name: itineraryName.value,
           description: itineraryDescription.value,
           start_date: startDate.value,
@@ -226,20 +225,16 @@ document.addEventListener('DOMContentLoaded', function() {
       //hides modal
       document.getElementById("myModal").style.display = "none";
 
-      //displays nav bar
-      document.getElementById("navbar-intro").style.display = "block";
-
     })
   }
   function displayItinerary(user){
     let userFilter = user.filter(function (user) {
       return user.email === emailForm.value
     })
-
+    hiddenUserId.value = userFilter[0].id
     //creates the actual list elements with an id equal to the trip name, etc to show up in the left hand bar ofthe page
     userFilter[0].user_trips.forEach(trip => {
       let userTrip = document.createElement('li')
-      // debugger
       userTrip.id = `${trip.name}-${trip.id}`
       userTrip.innerText = trip.name
       userTrip.style = "margin: 2.5px"
@@ -294,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault()
             let x = document.getElementById("itin-container").childNodes
 
-            for (let i = 1; i < x.length; i++) {
+            for (let i = 0; i < x.length; i++) {
               if (x[i].innerText === document.getElementsByTagName('h1')[0].innerText) {
                 document.getElementById("itin-container").removeChild(x[i])
               }
@@ -312,7 +307,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           })
         })
-
       })
     })
   }
