@@ -17,10 +17,10 @@ let placeWhereItineraryLoads = document.getElementById('itinerary-detail')
 let createButton = document.getElementById('createButton')
 let searchButton = document.getElementById('searchButton')
 let searchField = document.getElementById('searchLocation')
-const userURL = 'http://localhost:3000/api/v1/users'
-const itineraryURL = 'http://localhost:3000/api/v1/itineraries'
-const locationURL = 'http://localhost:3000/api/v1/locations'
-const stopURL = 'http://localhost:3000/api/v1/stops'
+const userURL = 'https://trippr-server.herokuapp.com/api/v1/users'
+const itineraryURL = 'https://trippr-server.herokuapp.com/api/v1/itineraries'
+const locationURL = 'https://trippr-server.herokuapp.com/api/v1/locations'
+const stopURL = 'https://trippr-server.herokuapp.com/api/v1/stops'
 
 //modal click login
   $(document).ready(function(){
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
           placeWhereItineraryLoads.removeChild(placeWhereItineraryLoads.lastChild);
         }
         //loads itinerary information..continued
-        fetch('http://localhost:3000/api/v1/itineraries').then(data => data.json()).then(itinerary => {
+        fetch('https://trippr-server.herokuapp.com/api/v1/itineraries').then(data => data.json()).then(itinerary => {
           // filters for a particular user
           let itineraryFilter = itinerary.filter(itin => {
             return itin.name === (userTrip.id.split("-")[0])
@@ -294,12 +294,12 @@ document.addEventListener('DOMContentLoaded', function() {
               let card1 = document.getElementById('idItinerary')
               let valueIneed1 = card1.innerText
               selector.remove()
-              fetch('http://localhost:3000/api/v1/stops').then(res => res.json()).then(data => {
+              fetch('https://trippr-server.herokuapp.com/api/v1/stops').then(res => res.json()).then(data => {
                 let StopFilter = data.filter(stop => {
                   return stop.location_id === destination.id && stop.itinerary_id === parseInt(valueIneed1)
                 })
                 let stopNumber = StopFilter[0].id
-                fetch(`http://localhost:3000/api/v1/stops/${stopNumber}`, {
+                fetch(`https://trippr-server.herokuapp.com/api/v1/stops/${stopNumber}`, {
                   method: 'delete',
                   headers: {'Content-Type': 'application/json',
                     'Accept': 'application/json'}
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let card = document.getElementById('idItinerary')
             let valueIneed = card.innerText
 
-            fetch(`http://localhost:3000/api/v1/itineraries/${valueIneed}`, {
+            fetch(`https://trippr-server.herokuapp.com/api/v1/itineraries/${valueIneed}`, {
               method: 'delete',
               headers: {'Content-Type': 'application/json',
                 'Accept': 'application/json'}
