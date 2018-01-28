@@ -343,10 +343,6 @@ document.addEventListener('DOMContentLoaded', function() {
       //create the input elements for the itinerary form
       modalForm.innerHTML =  `
       <div class="form-group">
-        <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-        <input type="text" class="form-control" id="newUser" placeholder="Enter Username:">
-      </div>
-      <div class="form-group">
         <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label>
         <input type="text" class="form-control" id="newEmail" placeholder="Enter Email:">
       </div>
