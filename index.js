@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // create an itinerary....not including the location
   createButton.addEventListener('click', function (event) {
-    // debugger;
     event.preventDefault()
     // clears the page so that the form stuff can load
     while (placeWhereItineraryLoads.hasChildNodes()) {
@@ -235,7 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let userFilter = user.filter(function (user) {
       return user.email === emailForm.value
     })
-    debugger
 
     hiddenUserId.value = userFilter[0].id
     //creates the actual list elements with an id equal to the trip name, etc to show up in the left hand bar ofthe page
@@ -245,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
       userTrip.innerText = trip.name
       userTrip.style = "margin: 2.5px"
       userTrip.className = "list-group-item " + userFilter[0].id
-      // debugger
       listgroup.appendChild(userTrip)
 
       //loads itinerary information when you click on that item in the side bar
