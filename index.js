@@ -1,15 +1,11 @@
 let loginForm = document.getElementById('login-form')
 let loginButton = document.getElementById('loginButton')
-let hiddenUserId = document.getElementById('userIdHidden')
-// email and username from modal
+//email and username from modal
 let emailForm = document.getElementById('email2')
 let username = document.getElementById('usrname2')
-// submitbutton from modal
+//submitbutton from modal
 let submitModal = document.getElementById('submit-login')
-//create new user
-let createUser = document.getElementById('newUserButton')
-//modal form
-let modalForm = document.getElementById('modalForm')
+
 let emailBox = document.createElement('div')
 let sideBarAppend = document.getElementById('side-bar')
 let listgroup = document.getElementById('itin-container')
@@ -85,7 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("itineraryDescription").appendChild(itineraryDescription)
     document.getElementById("startDate").appendChild(startDate)
     document.getElementById("endDate").appendChild(endDate)
-    // this is where the new itineraries is breaking, need to send it to the form
+
+    let userId = parseInt(document.querySelector('.list-group-item').className.split(" ")[1])
+
     let submitForm = document.getElementById('submitForm')
     submitForm.addEventListener('click', (event) => {
       while (listgroup.hasChildNodes()) {
@@ -94,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
       event.preventDefault();
       fetch(itineraryURL, {
         method: 'POST',
-        body: JSON.stringify({user_id: document.getElementById('userIdHidden').value,
+        body: JSON.stringify({user_id: userId,
           name: itineraryName.value,
           description: itineraryDescription.value,
           start_date: startDate.value,
@@ -228,6 +226,9 @@ document.addEventListener('DOMContentLoaded', function() {
       //hides modal
       document.getElementById("myModal").style.display = "none";
 
+      //displays nav bar
+      document.getElementById("navbar-intro").style.display = "block";
+
     })
   }
   function displayItinerary(user){
@@ -235,14 +236,15 @@ document.addEventListener('DOMContentLoaded', function() {
       return user.email === emailForm.value
     })
 
-    hiddenUserId.value = userFilter[0].id
     //creates the actual list elements with an id equal to the trip name, etc to show up in the left hand bar ofthe page
     userFilter[0].user_trips.forEach(trip => {
       let userTrip = document.createElement('li')
+      // debugger
       userTrip.id = `${trip.name}-${trip.id}`
       userTrip.innerText = trip.name
       userTrip.style = "margin: 2.5px"
       userTrip.className = "list-group-item " + userFilter[0].id
+      // debugger
       listgroup.appendChild(userTrip)
 
       //loads itinerary information when you click on that item in the side bar
@@ -269,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <p> ${itineraryFilter[0].description}</p>
           <p> ${itineraryFilter[0].start_date} - ${itineraryFilter[0].end_date}</p>
           <p id="idItinerary" style="display: none;">${itineraryFilter[0].id}</p>
-          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button></div><button type="button" id="EditItinerary" style="display:none; width: 20%;" class="btn btn-warning">Edit</button></div><br>
+          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button><br>
           </div>
           `
           itineraryFilter[0].destinations.forEach(destination => {
@@ -312,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault()
             let x = document.getElementById("itin-container").childNodes
 
-            for (let i = 0; i < x.length; i++) {
+            for (let i = 1; i < x.length; i++) {
               if (x[i].innerText === document.getElementsByTagName('h1')[0].innerText) {
                 document.getElementById("itin-container").removeChild(x[i])
               }
@@ -330,60 +332,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           })
         })
+
       })
     })
   }
 
-  // create new user
-    createUser.addEventListener('click', function (event) {
-      event.preventDefault()
-      // clears the page so that the form stuff can load
-      document.getElementById("modal-header").innerText = "Create Profile"
-      document.getElementById("modal-footer").innerHTML = ""
-      //create the input elements for the itinerary form
-      modalForm.innerHTML =  `
-      <div class="form-group">
-        <label for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label>
-        <input type="text" class="form-control" id="newEmail" placeholder="Enter Email:">
-      </div>
-        <button type="submit" data-dismiss="modal" id="submit-new-login" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Welcome Aboard! 🚀</button>`
-
-      let submitForm = document.getElementById('submit-new-login')
-      submitForm.addEventListener('click', (event) => {
-
-        let newUser = document.getElementById('newUser')
-        let newEmail = document.getElementById('newEmail')
 
 
-        event.preventDefault();
-        fetch(userURL, {
-          method: 'POST',
-          body: JSON.stringify({
-            name: newUser.value,
-            email: newEmail.value
-          }),
-          headers: {'Content-Type': 'application/json',
-            'Accept': 'application/json'}
-        }).then(data=> data.json()).then(json=>{hiddenUserId.value = json.id})
-
-
-          fetch(userURL).then(data => data.json()).then(user => newUserData(user))
-
-      })
-
-    })
-
-  //displaying new user
-      function newUserData (user) {
-
-          console.log("Hello")
-          // document.getElementById("loginButton").style.display="none";
-          // createButton.style.display="block";
-          // document.getElementById("addLocation").style.display="block";
-          //filters user JSON object to return record that is equal to the user input for email
-          // displayItinerary(user)
-          //hides modal
-          document.getElementById("myModal").style.display = "none";
-      }
 
 })
