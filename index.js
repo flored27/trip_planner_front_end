@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <p> ${itineraryFilter[0].description}</p>
           <p> ${itineraryFilter[0].start_date} - ${itineraryFilter[0].end_date}</p>
           <p id="idItinerary" style="display: none;">${itineraryFilter[0].id}</p>
-          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button></div><button type="button" id="EditItinerary" style="width: 20%;" class="btn btn-warning">Edit</button></div><br>
+          <div class="container"><button type="button" id="deleteItinerary" style="width: 20%;" class="btn btn-danger">Delete</button><br>
           </div>
           `
           itineraryFilter[0].destinations.forEach(destination => {
